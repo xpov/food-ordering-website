@@ -185,8 +185,8 @@ window.addEventListener('DOMContentLoaded', function() {
     new MenuCard(
         "img/tabs/vegy.jpg",
         "vegy",
-        'Меню "Фитнес"',
-        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+        'Fitness Menu',
+        'The "Fitness Menu" is a new approach to cooking: more fresh vegetables and fruits. It is a product for active and healthy people. It is a completely new product with optimal pricing and high quality!',
         9,
         ".menu .container"
     ).render();
@@ -194,8 +194,8 @@ window.addEventListener('DOMContentLoaded', function() {
     new MenuCard(
         "img/tabs/post.jpg",
         "post",
-        'Меню "Постное"',
-        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+        'Vegetarian Menu',
+        'The "Vegetarian Menu" is a careful selection of ingredients: no animal products, almond, oat, coconut, or buckwheat milk, the right amount of protein thanks to tofu and imported vegetarian steaks.',
         14,
         ".menu .container"
     ).render();
@@ -203,8 +203,8 @@ window.addEventListener('DOMContentLoaded', function() {
     new MenuCard(
         "img/tabs/elite.jpg",
         "elite",
-        'Меню “Премиум”',
-        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+        'Premium Menu',
+        'In the "Premium Menu" we not only use beautiful packaging design but also high-quality execution of dishes. Red fish, seafood, fruits - a restaurant menu without going to a restaurant!',
         21,
         ".menu .container"
     ).render();
@@ -214,9 +214,11 @@ window.addEventListener('DOMContentLoaded', function() {
     const forms = document.querySelectorAll('form');
     const message = {
         loading: 'img/form/spinner.svg',
-        success: 'Спасибо! Скоро мы с вами свяжемся',
-        failure: 'Что-то пошло не так...'
+        success: 'Thank you! We will contact you shortly',
+        failure: 'Something went wrong...'
     };
+      
+
 
     forms.forEach(item => {
         postData(item);
@@ -284,8 +286,9 @@ window.addEventListener('DOMContentLoaded', function() {
         }, 4000);
     }
 
-    fetch('dhttp://localhost:3000/menu')
-        .then(data => data.json())
-        .then(res => console.log(res));
+    // // Проверка DB.json
+    // fetch('db.json')  // нужно изменить на локалхост
+    //     .then(data => data.json())
+    //     .then(res => console.log(res));
 
 });
