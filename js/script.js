@@ -181,33 +181,24 @@ window.addEventListener('DOMContentLoaded', function() {
             this.parent.append(element);
         }
     }
+// Commented before doing slider 
 
-    new MenuCard(
-        "img/tabs/vegy.jpg",
-        "vegy",
-        'Fitness Menu',
-        'The "Fitness Menu" is a new approach to cooking: more fresh vegetables and fruits. It is a product for active and healthy people. It is a completely new product with optimal pricing and high quality!',
-        9,
-        ".menu .container"
-    ).render();
+    // const getResource = async (url) => {
+    //     const res = await fetch(url);
 
-    new MenuCard(
-        "img/tabs/post.jpg",
-        "post",
-        'Vegetarian Menu',
-        'The "Vegetarian Menu" is a careful selection of ingredients: no animal products, almond, oat, coconut, or buckwheat milk, the right amount of protein thanks to tofu and imported vegetarian steaks.',
-        14,
-        ".menu .container"
-    ).render();
+    //     if (!res.ok) {
+    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    //     }
 
-    new MenuCard(
-        "img/tabs/elite.jpg",
-        "elite",
-        'Premium Menu',
-        'In the "Premium Menu" we not only use beautiful packaging design but also high-quality execution of dishes. Red fish, seafood, fruits - a restaurant menu without going to a restaurant!',
-        21,
-        ".menu .container"
-    ).render();
+    //     return await res.json();
+    // };
+
+    // getResource('http://localhost:3000/menu')
+    //         .then(data => {
+    //             data.forEach(({img, altimg, title, descr, price}) => {
+    //                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    //             });
+    //         });
 
     // Forms
 
@@ -221,10 +212,22 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
     forms.forEach(item => {
-        postData(item);
+        bindPostData(item);
     });
 
-    function postData(form) {
+    const postData = async (url, data) => {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data
+        });
+
+        return await res.json();
+    };
+
+    function bindPostData(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -238,19 +241,10 @@ window.addEventListener('DOMContentLoaded', function() {
         
             const formData = new FormData(form);
 
-            const object = {};
-            formData.forEach(function(value, key){
-                object[key] = value;
-            });
+            const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            fetch('server.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(object)
-            })
-            .then(data => data.text())
+
+            postData('server.php', json)
             .then(data => {
                 console.log(data);
                 showThanksModal(message.success);
@@ -286,9 +280,65 @@ window.addEventListener('DOMContentLoaded', function() {
         }, 4000);
     }
 
-    // // Проверка DB.json
+    // // Check DB.json
     // fetch('db.json')  // нужно изменить на локалхост
     //     .then(data => data.json())
     //     .then(res => console.log(res));
 
+
+    // Slider
+
+    let slideIndex = 1;
+    const slides = document.querySelectorAll('.offer__slide'),
+        prev = document.querySelector('.offer__slider-prev'),
+        next = document.querySelector('.offer__slider-next'),
+        total = document.querySelector('#total'),
+        current = document.querySelector('#current');
+
+    showSlides(slideIndex);
+
+    if (slides.length < 10) {
+        total.textContent = `0${slides.length}`;
+    } else {
+        total.textContent = slides.length;
+    }
+
+    function showSlides(n) {
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+
+        slides.forEach((item) => item.style.display = 'none');
+
+        slides[slideIndex - 1].style.display = 'block';
+        
+        if (slides.length < 10) {
+            current.textContent =  `0${slideIndex}`;
+        } else {
+            current.textContent =  slideIndex;
+        }
+    }
+
+    function plusSlides (n) {
+        showSlides(slideIndex += n);
+    }
+
+    prev.addEventListener('click', function(){
+        plusSlides(-1);
+    });
+
+    next.addEventListener('click', function(){
+        plusSlides(1);
+    });
 });
+
+
+
+
+
+
+
+
