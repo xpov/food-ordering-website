@@ -1,5 +1,8 @@
 # Food Ordering Website
 
+**Live Demo: [Project](https://xpov.github.io/food-ordering-website/)**
+
+
 ## About the Project
 
 Welcome to the Food Ordering Website! This platform is designed to allow users to order healthy meals based on specific parameters such as weight, height, gender, and even customize the calorie intake to suit individual needs.
