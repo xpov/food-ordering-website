@@ -1,6 +1,6 @@
 # Food Ordering Website
 
-**Live Demo: [Project](https://xpov.github.io/food-ordering-website/)**
+**Live Demo: [Food Ordering Website](https://xpov.github.io/food-ordering-website/)**
 
 
 ## About the Project
